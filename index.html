@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>W5 PR 練習 Chatbot</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>🤖 PR 練習 Chatbot</h1>
+      <p class="subtitle">W5 Pull Request 練習</p>
+    </header>
+
+    <div id="chat-box">
+      <div class="message bot">
+        嗨！這週我們要學 Pull Request 🔀 試著修改我，然後開一個 PR 吧！
+      </div>
+    </div>
+
+    <div class="input-area">
+      <input id="user-input" type="text" placeholder="輸入訊息...">
+      <button onclick="sendMessage()">送出</button>
+    </div>
+  </div>
+
+  <script>
+    function sendMessage() {
+      const input = document.getElementById('user-input');
+      const chatBox = document.getElementById('chat-box');
+      const text = input.value.trim();
+
+      if (!text) return;
+
+      const userDiv = document.createElement('div');
+      userDiv.className = 'message user';
+      userDiv.textContent = text;
+      chatBox.appendChild(userDiv);
+
+      const botDiv = document.createElement('div');
+      botDiv.className = 'message bot';
+      botDiv.textContent = `你說了「${text}」！`;
+      chatBox.appendChild(botDiv);
+
+      input.value = '';
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    document.getElementById('user-input').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') sendMessage();
+    });
+  </script>
+
+</body>
+</html>

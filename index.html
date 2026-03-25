@@ -59,6 +59,20 @@
     document.getElementById('user-input').addEventListener('keypress', function(e) {
       if (e.key === 'Enter') sendMessage();
     });
+
+    function searchMessages(query) {
+      const messages = document.querySelectorAll('#chat-box .message');
+      const lowerQuery = query.toLowerCase();
+      
+      messages.forEach(msg => {
+        // 使用 textContent 包含文字判斷
+        if (msg.textContent.toLowerCase().includes(lowerQuery)) {
+          msg.style.display = '';
+        } else {
+          msg.style.display = 'none';
+        }
+      });
+    }
   </script>
 
 </body>

@@ -11,6 +11,7 @@
     <header>
       <h1>🤖 PR 練習 Chatbot</h1>
       <p class="subtitle">W5 Pull Request 練習</p>
+      <input id="search-input" type="text" placeholder="搜尋訊息..." oninput="searchMessages(this.value)">
     </header>
 
     <div id="chat-box">
@@ -35,12 +36,20 @@
 
       const userDiv = document.createElement('div');
       userDiv.className = 'message user';
+      const timeUser = document.createElement('span');
+      timeUser.className = 'timestamp';
+      timeUser.textContent = new Date().toLocaleTimeString('zh-TW', {hour:'2-digit', minute:'2-digit'});
       userDiv.textContent = text;
+      userDiv.appendChild(timeUser);
       chatBox.appendChild(userDiv);
 
       const botDiv = document.createElement('div');
       botDiv.className = 'message bot';
+      const timeBot = document.createElement('span');
+      timeBot.className = 'timestamp';
+      timeBot.textContent = new Date().toLocaleTimeString('zh-TW', {hour:'2-digit', minute:'2-digit'});
       botDiv.textContent = `你說了「${text}」！`;
+      botDiv.appendChild(timeBot);
       chatBox.appendChild(botDiv);
 
       input.value = '';
@@ -50,6 +59,20 @@
     document.getElementById('user-input').addEventListener('keypress', function(e) {
       if (e.key === 'Enter') sendMessage();
     });
+
+    function searchMessages(query) {
+      const messages = document.querySelectorAll('#chat-box .message');
+      const lowerQuery = query.toLowerCase();
+      
+      messages.forEach(msg => {
+        // 使用 textContent 包含文字判斷
+        if (msg.textContent.toLowerCase().includes(lowerQuery)) {
+          msg.style.display = '';
+        } else {
+          msg.style.display = 'none';
+        }
+      });
+    }
   </script>
 
 </body>
